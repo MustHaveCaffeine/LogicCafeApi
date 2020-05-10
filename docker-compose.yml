@@ -1,0 +1,30 @@
+version:  '3.3'
+
+services: 
+  database:
+    image: mongo
+    # restart: always
+    volumes: 
+      # - ./data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - target: 27017
+        published: 7000
+    networks:
+      - home
+    environment:
+      MONGO_INITDB_DATABASE: appdata
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+
+    
+#   application:
+#     build:
+#       context: ./image
+#       dockerfile: Application
+
+# volumes:
+#   db-data:
+
+networks:
+  home:
