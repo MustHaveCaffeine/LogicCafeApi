@@ -3,8 +3,6 @@ package io.lc.app.models;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import io.leangen.graphql.annotations.GraphQLQuery;
-
 @Document(collection="users")
 public class User {
     private ObjectId id;
@@ -37,7 +35,6 @@ public class User {
     /**
      * @return the email address
      */
-    @GraphQLQuery(name = "emailAddress") 
     public String getEmailAddress() {
         return this.emailAddress;
     }
