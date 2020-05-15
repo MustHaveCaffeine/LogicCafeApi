@@ -1,8 +1,8 @@
-package io.lc.app.dataFetchers;
+package io.lc.app.fetchers;
 
 import graphql.schema.*;
 import io.lc.app.models.User;
-import io.lc.app.services.IUserService;
+import io.lc.app.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,17 +12,17 @@ import java.util.Map;
 @Component
 public class UserFetcher implements DataFetcher<User> 
 {
-    private final IUserService userService;
+    private final UserRepository userRepository;
 
     @Autowired
-    UserFetcher(IUserService userService){
-        this.userService = userService;
+    UserFetcher(UserRepository userRepository){
+        this.userRepository = userRepository;
     }
 
     @Override
     public User get(DataFetchingEnvironment env) {
         Map<String, Object> args = env.getArguments();
         String username = String.valueOf(args.get("username"));
-        return this.userService.findByUsername(username);
+        return this.userRepository.findByUsername(username);
     }
 }

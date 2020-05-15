@@ -10,7 +10,7 @@ db.createUser({
 });
 
 db.createCollection("users");
-db.users.createIndex( { userName: -1 } );
+db.users.createIndex( { userName: 1 } );
 db.users.insert({
     firstName: "Ajay",
     lastName: "Saini",

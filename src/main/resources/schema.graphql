@@ -1,8 +1,17 @@
 type Query {
   user(username: String): User
+  problem(slug: String): Problem
+  problems: [Problem!]
 }
 
 type User {
-  firstName: String,
+  firstName: String
   lastName: String
+}
+
+type Problem {
+  slug: String
+  title: String
+  level: String
+  tags: [String!]
 }

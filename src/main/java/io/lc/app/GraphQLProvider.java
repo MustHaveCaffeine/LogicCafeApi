@@ -8,7 +8,9 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import io.lc.app.dataFetchers.UserFetcher;
+
+import io.lc.app.fetchers.ProblemFetcher;
+import io.lc.app.fetchers.UserFetcher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +29,8 @@ public class GraphQLProvider {
 
     @Autowired
     private UserFetcher userFetcher;
+    @Autowired
+    private ProblemFetcher problemFetcher;
     
     @Bean
     public GraphQL graphQL() { 
@@ -51,6 +55,8 @@ public class GraphQLProvider {
     private RuntimeWiring buildWiring() {
         return RuntimeWiring.newRuntimeWiring()
                 .type(newTypeWiring("Query").dataFetcher("user", this.userFetcher))
+                .type(newTypeWiring("Query").dataFetcher("problem", this.problemFetcher.getBySlug()))
+                .type(newTypeWiring("Query").dataFetcher("problems", this.problemFetcher.getList()))
                 .build();
     }
 }
