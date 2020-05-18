@@ -1,26 +1,17 @@
 package io.lc.app;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.Resources;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
-import graphql.schema.idl.RuntimeWiring;
-import graphql.schema.idl.SchemaGenerator;
-import graphql.schema.idl.SchemaParser;
-import graphql.schema.idl.TypeDefinitionRegistry;
-
-import io.lc.app.fetchers.ProblemFetcher;
-import io.lc.app.fetchers.UserFetcher;
+import io.lc.app.resolvers.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import com.coxautodev.graphql.tools.SchemaParser;
+
 import javax.annotation.PostConstruct;
 import java.io.IOException;
-import java.net.URL;
-
-import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Component
 public class GraphQLProvider {
@@ -28,35 +19,20 @@ public class GraphQLProvider {
     private GraphQL graphQL;
 
     @Autowired
-    private UserFetcher userFetcher;
-    @Autowired
-    private ProblemFetcher problemFetcher;
+    private Query rootQueryResolver;
     
     @Bean
-    public GraphQL graphQL() { 
+    public GraphQL graphQL() {
         return graphQL;
     }
 
     @PostConstruct
     public void init() throws IOException {
-        URL url = Resources.getResource("schema.graphql");
-        String sdl = Resources.toString(url, Charsets.UTF_8);
-        GraphQLSchema graphQLSchema = buildSchema(sdl);
+        GraphQLSchema graphQLSchema = SchemaParser.newParser()
+                .file("schema.graphql")
+                .resolvers(this.rootQueryResolver)
+                .build()
+                .makeExecutableSchema();
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
-    }
-
-    private GraphQLSchema buildSchema(String sdl) {
-        TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(sdl);
-        RuntimeWiring runtimeWiring = buildWiring();
-        SchemaGenerator schemaGenerator = new SchemaGenerator();
-        return schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
-    }
-
-    private RuntimeWiring buildWiring() {
-        return RuntimeWiring.newRuntimeWiring()
-                .type(newTypeWiring("Query").dataFetcher("user", this.userFetcher))
-                .type(newTypeWiring("Query").dataFetcher("problem", this.problemFetcher.getBySlug()))
-                .type(newTypeWiring("Query").dataFetcher("problems", this.problemFetcher.getList()))
-                .build();
     }
 }
