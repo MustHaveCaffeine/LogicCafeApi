@@ -16,6 +16,7 @@ public class Problem {
     private String slug;
     private Level level;
     private List<String> tags;
+    private String description;
 
     /**
      * @return the Id
@@ -30,12 +31,18 @@ public class Problem {
     public String getTitle() {
         return this.title;
     }
+    public void setTitle(String title) {
+        this.title = title;
+    }
     
     /**
      * @return the slug
      */
     public String getSlug() {
         return this.slug;
+    }
+    public void getSlug(String slug) {
+        this.slug = slug;
     }
 
     /**
@@ -44,12 +51,28 @@ public class Problem {
     public List<String> getTags() {
         return this.tags;
     }
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 
     /**
      * @return the level
      */
     public Level getLevel() {
         return this.level;
+    }
+    public void setLevel(String level) {
+        this.level = Level.valueOf(level);
+    }
+
+    /**
+     * @return the description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

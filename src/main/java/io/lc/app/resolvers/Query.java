@@ -12,7 +12,6 @@ import io.lc.app.models.User;
 import io.lc.app.repositories.ProblemRepository;
 import io.lc.app.repositories.UserRepository;
 
-
 @Component
 public class Query implements GraphQLRootResolver {
     @Autowired

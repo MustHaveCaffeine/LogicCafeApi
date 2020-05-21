@@ -1,17 +1,49 @@
+
 type Query {
   user(username: String): User
   problem(slug: String): Problem
   problems: [Problem!]
 }
 
+type Mutation {
+  createProblem(problem: ProblemInput): Problem
+  submitSolution(problemSlug: String!, snippet: String!): Submission
+}
+
 type User {
-  firstName: String
+  firstName: String!
   lastName: String
+  emailAddress: String!
+  # submisions: [Submission!]
 }
 
 type Problem {
-  slug: String
-  title: String
-  level: String
+  id: String!
+  slug: String!
+  title: String!
+  level: String!
   tags: [String!]
+  # snippets: [CodeSnippet!]
+  description: String
+  submissions: [Submission!]
+}
+
+# type CodeSnippet {
+#   language: String!
+#   snippet: String!
+# }
+
+type Submission {
+  id: String!
+  # submitter: User!
+  snippet: String!
+  problem: Problem!
+}
+
+input ProblemInput {
+  id: String
+  title: String!
+  level: String!
+  tags: [String!]
+  description: String
 }
