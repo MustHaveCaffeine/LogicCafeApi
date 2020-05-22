@@ -1,14 +1,14 @@
-package io.lc.app.models;
+package io.lc.app.auth;
 
-public class AuthData {
+public class AuthRequest {
 
     private String email;
     private String password;
 
-    public AuthData() {
+    public AuthRequest() {
     }
 
-    public AuthData(String email, String password) {
+    public AuthRequest(String email, String password) {
         this.email = email;
         this.password = password;
     }

@@ -1,9 +1,9 @@
 package io.lc.app.resolvers;
 
 import io.lc.app.auth.AuthContext;
-import io.lc.app.models.AuthData;
+import io.lc.app.auth.AuthRequest;
+import io.lc.app.auth.AuthResponse;
 import io.lc.app.models.Problem;
-import io.lc.app.models.SigninPayload;
 import io.lc.app.models.Submission;
 import io.lc.app.models.User;
 import io.lc.app.repositories.ProblemRepository;
@@ -38,12 +38,12 @@ public class Mutation implements GraphQLMutationResolver {
     @Autowired
     SubmissionRepository submissionRepository;
 
-    public SigninPayload signin(AuthData authData, DataFetchingEnvironment environment) throws IllegalAccessException {
+    public AuthResponse signin(AuthRequest authData, DataFetchingEnvironment environment) throws IllegalAccessException {
         AuthContext context = environment.getContext();
         // User user = userRepository.findByEmail(authData.getEmail());
         User user = context.getUser();
         if (user.getEmail().equals(authData.getPassword())) {
-            return new SigninPayload(user.getEmail(), user);
+            return new AuthResponse(user.getEmail(), user);
         }
         throw new GraphQLException("Invalid credentials");
     }
