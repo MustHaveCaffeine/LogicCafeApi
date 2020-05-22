@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 import com.coxautodev.graphql.tools.SchemaParser;
 
 import javax.annotation.PostConstruct;
-import javax.security.auth.PrivateCredentialPermission;
 
 import java.io.IOException;
 

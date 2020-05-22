@@ -6,4 +6,5 @@ import io.lc.app.models.User;
 
 public interface UserRepository extends MongoRepository<User, ObjectId> {
     public User findByUsername(String username);
+    public User findByEmail(String email);
 }

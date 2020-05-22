@@ -6,10 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="users")
 public class User {
     private ObjectId id;
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String emailAddress;
+    private String firstName = "Default";
+    private String lastName = "Name";
+    private String username = "sainiajay";
+    private String email = "saini.ajay172@gmail.com";
 
     /**
      * @return the firstName
@@ -35,8 +35,8 @@ public class User {
     /**
      * @return the email address
      */
-    public String getEmailAddress() {
-        return this.emailAddress;
+    public String getEmail() {
+        return this.email;
     }
 
     @Override

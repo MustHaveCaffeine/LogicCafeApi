@@ -1,6 +1,5 @@
 package io.lc.app.resolvers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;

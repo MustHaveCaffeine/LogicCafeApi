@@ -6,6 +6,7 @@ type Query {
 }
 
 type Mutation {
+  signin(authData: AuthData!): SigninPayload!
   createProblem(problem: ProblemInput): Problem
   submitSolution(problemSlug: String!, snippet: String!): Submission
 }
@@ -13,8 +14,13 @@ type Mutation {
 type User {
   firstName: String!
   lastName: String
-  emailAddress: String!
+  email: String!
   # submisions: [Submission!]
+}
+
+type SigninPayload {
+  user: User!
+  token: String!
 }
 
 type Problem {
@@ -38,6 +44,11 @@ type Submission {
   # submitter: User!
   snippet: String!
   problem: Problem!
+}
+
+input AuthData {
+  email: String!
+  password: String!
 }
 
 input ProblemInput {
