@@ -2,7 +2,7 @@ package io.lc.app.resolvers;
 
 import java.util.List;
 
-import com.coxautodev.graphql.tools.GraphQLRootResolver;
+import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import io.lc.app.repositories.ProblemRepository;
 import io.lc.app.repositories.UserRepository;
 
 @Component
-public class Query implements GraphQLRootResolver {
+public class Query implements GraphQLQueryResolver {
     @Autowired
     UserRepository userRepository;
 
