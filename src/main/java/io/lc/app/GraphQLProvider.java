@@ -2,14 +2,8 @@ package io.lc.app;
 
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
-import io.lc.app.directives.Test;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
-
-import io.lc.app.resolvers.Mutation;
-import io.lc.app.resolvers.ProblemResolver;
-import io.lc.app.resolvers.Query;
-import io.lc.app.resolvers.SubmissionResolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -22,7 +16,6 @@ import javax.annotation.PostConstruct;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -30,14 +23,6 @@ public class GraphQLProvider {
 
     private GraphQL graphQL;
 
-    @Autowired
-    private Query rootQueryResolver;
-    @Autowired
-    private Mutation rootMutationResolver;
-    @Autowired
-    private ProblemResolver problemResolver;
-    @Autowired
-    private SubmissionResolver submissionResolver;
     @Autowired
     private ApplicationContext сontext;
     
