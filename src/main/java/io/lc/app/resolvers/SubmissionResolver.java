@@ -1,7 +1,6 @@
 package io.lc.app.resolvers;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 import com.coxautodev.graphql.tools.GraphQLResolver;
 
