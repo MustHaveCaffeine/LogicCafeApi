@@ -1,12 +1,13 @@
 
 type Query {
-  user(username: String): User
+  user: User
   problem(slug: String): Problem
   problems: [Problem!]
 }
 
 type Mutation {
   signin(authData: AuthRequest!): AuthResponse!
+  signup(authData: AuthRequest!): AuthResponse!
   createProblem(problem: ProblemInput): Problem
   submitSolution(problemSlug: String!, snippet: String!): Submission
 }

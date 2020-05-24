@@ -7,6 +7,8 @@ import com.coxautodev.graphql.tools.GraphQLRootResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import graphql.schema.DataFetchingEnvironment;
+import io.lc.app.GraphQLContext;
 import io.lc.app.models.Problem;
 import io.lc.app.models.User;
 import io.lc.app.repositories.ProblemRepository;
@@ -20,8 +22,9 @@ public class Query implements GraphQLRootResolver {
     @Autowired
     ProblemRepository problemRepository;
 
-    public User getUser(String username) {
-        return this.userRepository.findByUsername(username);
+    public User getUser(DataFetchingEnvironment environment) {
+        GraphQLContext context = environment.getContext();
+        return context.getUser();
     }
 
     public Problem getProblem(String slug) {

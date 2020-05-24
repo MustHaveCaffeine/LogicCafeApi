@@ -3,41 +3,21 @@ package io.lc.app.models;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Document(collection="users")
 public class User {
+    @Getter
     private ObjectId id;
-    private String firstName = "Default";
-    private String lastName = "Name";
-    private String username = "sainiajay";
-    private String email = "saini.ajay172@gmail.com";
-
-    /**
-     * @return the firstName
-     */
-    public String getFirstName() {
-        return this.firstName;
-    }
-
-    /**
-     * @return the lastName
-     */
-    public String getLastName() {
-        return this.lastName;
-    }
-
-    /**
-     * @return the lastName
-     */
-    public String getFullName() {
-        return this.toString();
-    }
-
-    /**
-     * @return the email address
-     */
-    public String getEmail() {
-        return this.email;
-    }
+    @Getter
+    private String firstName;
+    @Getter
+    private String lastName;
+    @Getter @Setter
+    private String email;
+    @Getter @Setter
+    private String password;
 
     @Override
     public String toString() {

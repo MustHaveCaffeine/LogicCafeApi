@@ -22,7 +22,7 @@ public class UserFetcher implements DataFetcher<User>
     @Override
     public User get(DataFetchingEnvironment env) {
         Map<String, Object> args = env.getArguments();
-        String username = String.valueOf(args.get("username"));
-        return this.userRepository.findByUsername(username);
+        String email = String.valueOf(args.get("email"));
+        return this.userRepository.findByEmail(email);
     }
 }
