@@ -1,6 +1,7 @@
 package io.lc.app;
 
 import java.security.Key;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,8 +46,10 @@ public class GraphQLController {
         @RequestHeader(value = "Authorization", required = false) String authHeader,
         HttpServletRequest request, HttpServletResponse response) {
         String query = (String)requestBody.get("query");
-        @SuppressWarnings("unchecked")
-        Map<String, Object> variables = (Map<String, Object>)requestBody.get("variables");
+        Map<String, Object> variables = new HashMap<String, Object>();
+        if(requestBody.containsKey("variables")) {
+            variables = (Map<String, Object>)requestBody.get("variables");
+        }
         String operationName = (String)requestBody.get("operationName");
         GraphQLContext context = new GraphQLContext(request, response);
         User authenticatedUser = getAuthenticatedUser(authHeader);
