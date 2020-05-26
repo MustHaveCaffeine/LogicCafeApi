@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.http.MediaType;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
+import graphql.language.Document;
+import graphql.schema.idl.SchemaPrinter;
+import graphql.introspection.IntrospectionQuery;
+import graphql.introspection.IntrospectionResultToSchema;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -38,6 +42,14 @@ public class GraphQLController {
 
     @Autowired
     private GraphQL graphQL;
+
+    @GetMapping(value = "/graphql", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public String printSchema() {
+        ExecutionResult result = this.graphQL.execute(IntrospectionQuery.INTROSPECTION_QUERY);
+        Document document = new IntrospectionResultToSchema().createSchemaDefinition(result);
+        return new SchemaPrinter().print(document);
+    }
 
     @PostMapping(value = "/graphql", consumes = MediaType.APPLICATION_JSON_VALUE , produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
